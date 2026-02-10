@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر العسل - بيع جميع أنواع العسل الطبيعي</title>
+    <meta name="description" content="متجر متخصص لبيع جميع أنواع العسل الطبيعي بأفضل الأسعار وجودة عالية. عسل السدر، عسل الزهور، عسل الموالح، عسل البرسيم وأكثر.">
+    <meta name="keywords" content="عسل، عسل طبيعي، عسل السدر، عسل الزهور، متجر عسل، عسل اصلي">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fefce8',
+                            100: '#fef9c3',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        },
+                        secondary: {
+                            500: '#8b5a2b',
+                            600: '#7c4a1f',
+                            700: '#5d3707',
+                        },
+                        honey: '#ffd700'
+                    },
+                    fontFamily: {
+                        'cairo': ['Cairo', 'sans-serif']
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '88': '22rem',
+                        '128': '32rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .honey-gradient {
+            background: linear-gradient(135deg, #fefce8 0%, #fef9c3 50%, #fde047 100%);
+        }
+        .honey-border {
+            border-color: #eab308;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .nav-link:hover {
+            color: #ca8a04;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 font-cairo">
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2 space-x-reverse">
+                    <div class="w-12 h-12 rounded-full honey-gradient flex items-center justify-center">
+                        <i class="fas fa-honey-pot text-secondary-600 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800">متجر العسل</h1>
+                        <p class="text-sm text-gray-600">جميع أنواع العسل الطبيعي</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8 space-x-reverse">
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary-600 font-medium transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('home')">الرئيسية</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary-600 font-medium transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('products')">المنتجات</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary-600 font-medium transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('about')">عن المتجر</a>
+                    <a href="#" class="nav-link text-gray-700 hover:text-primary-600 font-medium transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('contact')">اتصل بنا</a>
+                </nav>
+
+                <!-- Cart & User Actions -->
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <button class="relative p-2 hover:bg-gray-100 rounded-full transition-colors" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -left-1 bg-primary-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </button>
+                    <button class="hidden md:block bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('products')">تسوق الآن</button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden py-4 border-t border-gray-200">
+                <div class="flex flex-col space-y-4">
+                    <a href="#" class="text-gray-700 hover:text-primary-600 font-medium py-2" onclick="event.preventDefault(); scrollToSection('home')">الرئيسية</a>
+                    <a href="#" class="text-gray-700 hover:text-primary-600 font-medium py-2" onclick="event.preventDefault(); scrollToSection('products')">المنتجات</a>
+                    <a href="#" class="text-gray-700 hover:text-primary-600 font-medium py-2" onclick="event.preventDefault(); scrollToSection('about')">عن المتجر</a>
+                    <a href="#" class="text-gray-700 hover:text-primary-600 font-medium py-2" onclick="event.preventDefault(); scrollToSection('contact')">اتصل بنا</a>
+                    <button class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-lg font-medium w-full transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('products')">تسوق الآن</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="honey-gradient py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center md:text-right">
+                        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">أفضل أنواع العسل الطبيعي</h2>
+                        <p class="text-xl text-gray-700 mb-8">اكتشف مجموعة متنوعة من أجود أنواع العسل الطبيعي من مصادر موثوقة حول العالم. جودة عالية وطعم لا ينسى.</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-end">
+                            <button class="bg-primary-500 hover:bg-primary-600 text-white px-8 py-3 rounded-lg font-bold text-lg transition-colors duration-300 shadow-lg" onclick="event.preventDefault(); scrollToSection('products')">تصفح المنتجات</button>
+                            <button class="bg-white hover:bg-gray-100 text-gray-800 border border-gray-300 px-8 py-3 rounded-lg font-bold text-lg transition-colors duration-300" onclick="event.preventDefault(); scrollToSection('about')">تعرف علينا</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="relative">
+                            <img src="https://picsum.photos/500/400?random=101" alt="جرار عسل طبيعي متنوعة" class="rounded-2xl shadow-2xl w-full max-w-lg" loading="lazy">
+                            <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl">
+                                <div class="flex items-center space-x-3 space-x-reverse">
+                                    <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-star text-primary-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-800">100% طبيعي</p>
+                                        <p class="text-sm text-gray-600">ضمان الجودة</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">أنواع العسل المتوفرة</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">اختر من بين مجموعة واسعة من أنواع العسل الطبيعي المصنف حسب المصدر والمنطقة</p>
+                </div>
+
+                <!-- Product Categories -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                    <button class="category-btn py-3 px-4 bg-primary-500 text-white rounded-lg font-medium" data-category="all">جميع الأنواع</button>
+                    <button class="category-btn py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors" data-category="sidr">عسل السدر</button>
+                    <button class="category-btn py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors" data-category="flowers">عسل الزهور</button>
+                    <button class="category-btn py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors" data-category="citrus">عسل الموالح</button>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Product items will be generated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shield-alt text-primary-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">جودة مضمونة</h3>
+                        <p class="text-gray-600">جميع منتجاتنا تخضع لفحوصات الجودة لضمان نقاء العسل وخلوه من المواد المضافة</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-shipping-fast text-primary-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">شحن سريع</h3>
+                        <p class="text-gray-600">نقدم خدمة الشحن السريع لجميع أنحاء المملكة خلال 2-3 أيام عمل</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-headset text-primary-500 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">دعم فني 24/7</h3>
+                        <p class="text-gray-600">فريق دعم متاح على مدار الساعة للإجابة على استفساراتكم وتقديم المساعدة</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <img src="https://picsum.photos/600/400?random=102" alt="عملية جمع العسل الطبيعي" class="rounded-2xl shadow-xl w-full" loading="lazy">
+                    </div>
+                    <div class="text-right">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">عن متجر العسل</h2>
+                        <p class="text-gray-700 mb-6 text-lg">نحن متجر متخصص في توفير أجود أنواع العسل الطبيعي من مصادر موثوقة حول العالم. نسعى لجلب أفضل المنتجات الطبيعية التي تحافظ على فوائدها الغذائية والعلاجية.</p>
+                        <p class="text-gray-700 mb-8 text-lg">نعمل مباشرة مع منتجي العسل لضمان الجودة والنقاء في كل منتج نقدمه لعملائنا الكرام.</p>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">+50 نوع</p>
+                                    <p class="text-sm text-gray-600">من العسل الطبيعي</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 space-x-reverse">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-check text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">+5000 عميل</p>
+                                    <p class="text-sm text-gray-600">عملاء سعداء</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 md:p-12">
+                    <div class="text-center mb-10">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">اتصل بنا</h2>
+                        <p class="text-gray-600">لديك استفسار أو تحتاج مساعدة؟ نحن هنا لخدمتك</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Contact Info -->
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4 space-x-reverse">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-phone text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">الهاتف</p>
+                                    <p class="text-gray-600">+966 55 123 4567</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 space-x-reverse">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-envelope text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">البريد الإلكتروني</p>
+                                    <p class="text-gray-600">info@honey-store.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 space-x-reverse">
+                                <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-map-marker-alt text-primary-500"></i>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-gray-800">العنوان</p>
+                                    <p class="text-gray-600">الرياض، المملكة العربية السعودية</p>
+                                </div>
+                            </div>
+                            <div class="pt-6">
+                                <h3 class="font-bold text-gray-800 mb-4">تابعنا على</h3>
+                                <div class="flex space-x-4 space-x-reverse">
+                                    <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-primary-500 rounded-full flex items-center justify-center transition-colors" onclick="event.preventDefault();">
+                                        <i class="fab fa-twitter text-gray-600 hover:text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-primary-500 rounded-full flex items-center justify-center transition-colors" onclick="event.preventDefault();">
+                                        <i class="fab fa-instagram text-gray-600 hover:text-white"></i>
+                                    </a>
+                                    <a href="#" class="w-10 h-10 bg-gray-100 hover:bg-primary-500 rounded-full flex items-center justify-center transition-colors" onclick="event.preventDefault();">
+                                        <i class="fab fa-facebook-f text-gray-600 hover:text-white"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div>
+                            <form id="contact-form" class="space-y-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 mb-2">الاسم الكامل</label>
+                                    <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" required>
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 mb-2">البريد الإلكتروني</label>
+                                    <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" required>
+                                </div>
+                                <div>
+                                    <label for="message" class="block text-gray-700 mb-2">الرسالة</label>
+                                    <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent" required></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-primary-500 hover:bg-primary-600 text-white py-3 rounded-lg font-bold transition-colors duration-300">إرسال الرسالة</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 space-x-reverse mb-6">
+                        <div class="w-10 h-10 rounded-full honey-gradient flex items-center justify-center">
+                            <i class="fas fa-honey-pot text-secondary-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold">متجر العسل</h3>
+                    </div>
+                    <p class="text-gray-300">متجرنا يوفر أجود أنواع العسل الطبيعي من مصادر موثوقة حول العالم مع ضمان الجودة والنقاء.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">روابط سريعة</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); scrollToSection('home')">الرئيسية</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); scrollToSection('products')">المنتجات</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); scrollToSection('about')">عن المتجر</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); scrollToSection('contact')">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">أنواع العسل</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); filterProducts('sidr')">عسل السدر</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); filterProducts('flowers')">عسل الزهور</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); filterProducts('citrus')">عسل الموالح</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary-500 transition-colors" onclick="event.preventDefault(); filterProducts('clover')">عسل البرسيم</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-6">اشترك في النشرة</h4>
+                    <p class="text-gray-300 mb-4">اشترك للحصول على عروض حصرية وأخبار المنتجات الجديدة</p>
+                    <form class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" placeholder="بريدك الإلكتروني" class="flex-grow px-4 py-2 rounded-lg text-gray-800 focus:outline-none">
+                        <button type="submit" class="bg-primary-500 hover:bg-primary-600 px-6 py-2 rounded-lg font-medium transition-colors">اشتراك</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 متجر العسل. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50 hidden">
+        <div class="absolute top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl">
+            <div class="p-6 h-full flex flex-col">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-800">سلة التسوق</h3>
+                    <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times text-2xl"></i>
+                    </button>
+                </div>
+                
+                <div id="cart-items" class="flex-grow overflow-y-auto mb-6">
+                    <!-- Cart items will be generated by JavaScript -->
+                </div>
+                
+                <div class="border-t border-gray-200 pt-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-gray-700">المجموع</span>
+                        <span id="cart-total" class="text-2xl font-bold text-gray-800">0 ر.س</span>
+                    </div>
+                    <button class="w-full bg-primary-500 hover:bg-primary-600 text-white py-3 rounded-lg font-bold transition-colors duration-300">إتمام الشراء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Define all data at the beginning
+        const products = [
+            {
+                "id": 1,
+                "name": "عسل السدر اليمني",
+                "description": "عسل سدر يمني أصلي من أشجار السدر البرية، لونه غامق وطعمه فريد",
+                "price": 250,
+                "originalPrice": 300,
+                "weight": "1 كجم",
+                "category": "sidr",
+                "rating": 4.8,
+                "stock": 15,
+                "features": ["طبيعي 100%", "من اليمن", "معالج طبيعي"]
+            },
+            {
+                "id": 2,
+                "name": "عسل الزهور البري",
+                "description": "عسل متنوع المصادر من رحيق الأزهار البرية، خفيف الطعم ولون فاتح",
+                "price": 180,
+                "originalPrice": 220,
+                "weight": "1 كجم",
+                "category": "flowers",
+                "rating": 4.5,
+                "stock": 25,
+                "features": ["مختلط الزهور", "خفيف الطعم", "غني بالفيتامينات"]
+            },
+            {
+                "id": 3,
+                "name": "عسل الموالح",
+                "description": "عسل من رحيق أزهار الحمضيات، له نكهة حمضية خفيفة وفوائد عديدة",
+                "price": 160,
+                "originalPrice": 200,
+                "weight": "1 كجم",
+                "category": "citrus",
+                "rating": 4.6,
+                "stock": 20,
+                "features": ["من أزهار الحمضيات", "غني بفيتامين C", "مضاد للأكسدة"]
+            },
+            {
+                "id": 4,
+                "name": "عسل السدر الجبلي",
+                "description": "عسل سدر نادر من المناطق الجبلية العالية، قوام كثيف وطعم غني",
+                "price": 320,
+                "originalPrice": 380,
+                "weight": "500 جرام",
+                "category": "sidr",
+                "rating": 4.9,
+                "stock": 8,
+                "features": ["نادر", "من الجبال", "قوام كثيف"]
+            },
+            {
+                "id": 5,
+                "name": "عسل البرسيم",
+                "description": "عسل نقي من رحيق زهور البرسيم، لونه فاتح وطعمه حلو معتدل",
+                "price": 140,
+                "originalPrice": 170,
+                "weight": "1 كجم",
+                "category": "flowers",
+                "rating": 4.4,
+                "stock": 30,
+                "features": ["من زهور البرسيم", "طعم معتدل", "مثالي للتحلية"]
+            },
+            {
+                "id": 6,
+                "name": "عسل الكينا",
+                "description": "عسل داكن اللون من أزهار شجر الكينا، له خصائص علاجية ممتازة",
+                "price": 200,
+                "originalPrice": 240,
+                "weight": "1 كجم",
+                "category": "flowers",
+                "rating": 4.7,
+                "stock": 12,
+                "features": ["خصائص علاجية", "لون داكن", "طعم قوي"]
+            },
+            {
+                "id": 7,
+                "name": "عسل الحمضيات المختلط",
+                "description": "مزيج من عسل الحمضيات المختلفة، يوفر نكهة فريدة وفوائد متنوعة",
+                "price": 175,
+                "originalPrice": 210,
+                "weight": "1 كجم",
+                "category": "citrus",
+                "rating": 4.5,
+                "stock": 18,
+                "features": ["مزيج حمضيات", "نكهة فريدة", "فوائد متنوعة"]
+            },
+            {
+                "id": 8,
+                "name": "عسل السدر الملكي",
+                "description": "عسل سدر ملكي عالي الجودة، منتج مميز لذوي الذوق الرفيع",
+                "price": 450,
+                "originalPrice": 550,
+                "weight": "500 جرام",
+                "category": "sidr",
+                "rating": 5.0,
+                "stock": 5,
+                "features": ["ملكي", "جودة عالية", "منتج مميز"]
+            }
+        ];
+
+        const cartItems = [
+            {
+                "id": 1,
+                "name": "عسل السدر اليمني",
+                "price": 250,
+                "quantity": 1,
+                "weight": "1 كجم"
+            },
+            {
+                "id": 2,
+                "name": "عسل الزهور البري",
+                "price": 180,
+                "quantity": 2,
+                "weight": "1 كجم"
+            }
+        ];
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Render products
+            renderProducts('all');
+            
+            // Initialize cart
+            updateCart();
+            
+            // Setup event listeners
+            setupEventListeners();
+        });
+
+        function renderProducts(category) {
+            const productsGrid = document.querySelector('#products .grid');
+            const filteredProducts = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+            
+            productsGrid.innerHTML = filteredProducts.map(product => `
+                <div class="product-card bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300">
+                    <div class="relative">
+                        <img src="https://picsum.photos/400/300?random=${product.id + 100}" alt="${product.name}" class="w-full h-64 object-cover" loading="lazy">
+                        ${product.stock < 10 ? '<span class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm">كمية محدودة</span>' : ''}
+                        ${product.originalPrice > product.price ? '<span class="absolute top-4 left-4 bg-primary-500 text-white px-3 py-1 rounded-full text-sm">عرض خاص</span>' : ''}
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-800">${product.name}</h3>
+                            <span class="text-sm text-gray-500">${product.weight}</span>
+                        </div>
+                        
+                        <p class="text-gray-600 mb-4 text-sm">${product.description}</p>
+                        
+                        <div class="flex items-center mb-4">
+                            <div class="flex text-yellow-400">
+                                ${generateStars(product.rating)}
+                            </div>
+                            <span class="text-gray-500 text-sm mr-2">(${product.rating})</span>
+                        </div>
+                        
+                        <div class="space-y-2 mb-4">
+                            ${product.features.map(feature => `
+                                <div class="flex items-center">
+                                    <i class="fas fa-check text-green-500 text-sm ml-2"></i>
+                                    <span class="text-gray-700 text-sm">${feature}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-2xl font-bold text-gray-800">${product.price} ر.س</span>
+                                ${product.originalPrice > product.price ? 
+                                    `<span class="text-gray-500 line-through text-sm mr-2">${product.originalPrice} ر.س</span>` : 
+                                    ''}
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="bg-primary-500 hover:bg-primary-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-300">
+                                أضف للسلة
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            return stars;
+        }
+
+        function filterProducts(category) {
+            // Update active category button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                if (btn.dataset.category === category) {
+                    btn.classList.remove('bg-gray-100', 'text-gray-700');
+                    btn.classList.add('bg-primary-500', 'text-white');
+                } else {
+                    btn.classList.remove('bg-primary-500', 'text-white');
+                    btn.classList.add('bg-gray-100', 'text-gray-700');
+                }
+            });
+            
+            // Render filtered products
+            renderProducts(category);
+            
+            // Scroll to products section
+            scrollToSection('products');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cartItems.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cartItems.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    weight: product.weight
+                });
+            }
+            
+            updateCart();
+            showNotification(`تم إضافة ${product.name} إلى سلة التسوق`);
+        }
+
+        function updateCart() {
+            // Update cart count
+            const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            
+            // Update cart total
+            const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').textContent = totalPrice + ' ر.س';
+            
+            // Update cart items in sidebar
+            const cartItemsContainer = document.getElementById('cart-items');
+            if (cartItemsContainer) {
+                cartItemsContainer.innerHTML = cartItems.map(item => `
+                    <div class="flex items-center border-b border-gray-200 py-4">
+                        <img src="https://picsum.photos/100/100?random=${item.id + 50}" alt="${item.name}" class="w-16 h-16 rounded-lg object-cover">
+                        <div class="flex-grow mr-4">
+                            <h4 class="font-bold text-gray-800">${item.name}</h4>
+                            <p class="text-sm text-gray-600">${item.weight}</p>
+                            <div class="flex items-center mt-2">
+                                <button onclick="updateQuantity(${item.id}, -1)" class="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-minus text-gray-600"></i>
+                                </button>
+                                <span class="mx-3 font-bold">${item.quantity}</span>
+                                <button onclick="updateQuantity(${item.id}, 1)" class="w-8 h-8 border border-gray-300 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-plus text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold text-gray-800">${item.price * item.quantity} ر.س</p>
+                            <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 text-sm mt-2">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                if (cartItems.length === 0) {
+                    cartItemsContainer.innerHTML = `
+                        <div class="text-center py-12">
+                            <i class="fas fa-shopping-cart text-gray-300 text-5xl mb-4"></i>
+                            <p class="text-gray-500">سلة التسوق فارغة</p>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function updateQuantity(productId, change) {
+            const item = cartItems.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            const index = cartItems.findIndex(item => item.id === productId);
+            if (index !== -1) {
+                cartItems.splice(index, 1);
+                updateCart();
+            }
+        }
+
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cart-sidebar');
+            cartSidebar.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                toggleMobileMenu(); // Close mobile menu if open
+            }
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 transform translate-y-full transition-transform duration-300';
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-xl ml-3"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-y-full');
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-y-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        function setupEventListeners() {
+            // Category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterProducts(btn.dataset.category);
+                });
+            });
+            
+            // Contact form
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // In a real application, you would send this data to a server
+                    console.log('Contact form submitted:', { name, email, message });
+                    
+                    // Show success message
+                    showNotification('تم إرسال رسالتك بنجاح، سنتواصل معك قريباً');
+                    
+                    // Reset form
+                    contactForm.reset();
+                });
+            }
+            
+            // Newsletter form
+            const newsletterForms = document.querySelectorAll('footer form');
+            newsletterForms.forEach(form => {
+                if (form.querySelector('input[type="email"]')) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const email = this.querySelector('input[type="email"]').value;
+                        
+                        // In a real application, you would send this to a newsletter service
+                        console.log('Newsletter subscription:', email);
+                        
+                        // Show success message
+                        showNotification('تم الاشتراك في النشرة البريدية بنجاح');
+                        
+                        // Reset form
+                        this.querySelector('input[type="email"]').value = '';
+                    });
+                }
+            });
+            
+            // Close cart when clicking outside
+            const cartSidebar = document.getElementById('cart-sidebar');
+            cartSidebar.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    toggleCart();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
